@@ -1,0 +1,20 @@
+{% extends 'appweb/padre.html' %}
+
+
+{% block titulo %}
+
+{% if user %}
+
+Bienvenido "{{user.username}}"
+<br>
+<a class="btn btn-primary text-uppercase ms-2" href="{% url 'Cliente' %}">Ir a cliente</a>
+<a class="btn btn-primary text-uppercase ms-2" href="{% url 'registroCliente' %}">Ir a vendedor</a>
+
+
+{% else %}
+
+{{mensaje}}
+
+{% endif %}
+
+{% endblock %}

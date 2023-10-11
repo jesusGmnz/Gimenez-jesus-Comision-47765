@@ -1,0 +1,15 @@
+{% extends "appweb/padre.html" %}
+
+{% block titulo %}
+Agregar Avatar
+{% endblock %}
+
+{% block formulario %}
+
+    <h1>Cargar Avatar</h1>
+
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {{miFormulario.as_p}}
+        <input type="submit" value="Actualizar">
+    </form>
+{% endblock  %}

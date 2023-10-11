@@ -1,0 +1,18 @@
+{% extends "appweb/padre.html" %}
+
+{% block titulo %}
+Acá borramos a los estudiantes
+{% endblock %}
+
+{% block formulario %}
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <p> ¿Estás seguro de borrar al estudiante {{object.nombre}}?</p>
+    
+    <input type="submit" value="CHAU">
+
+</form>
+
+
+{% endblock  %}

@@ -1,0 +1,21 @@
+{% extends 'appweb/padre.html' %}
+
+
+{% block titulo %}
+Iniciar sesión
+{% endblock %}
+
+{% block formulario %}
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+        {{ form.as_table }}
+    </table>
+    
+    <input type="submit" value="Iniciar Sesion">
+
+</form>
+
+
+{% endblock  %}
