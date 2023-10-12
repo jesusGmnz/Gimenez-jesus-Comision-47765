@@ -5,32 +5,27 @@ from .models import Avatar
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Repetir Contraseña", widget=forms.PasswordInput)
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+        
+
+class ComentarioFormulario(forms.Form):
+
+    tipo=forms.CharField(max_length=40)
+    calificacion=forms.FloatField()
+    opinion=forms.CharField(widget=forms.Textarea)
 
 
-class UserEditForm(UserCreationForm):
-    email = forms.EmailField(label="Ingrese su email:")
-    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
-    password2 = forms.CharField(
-        label='Repetir la contraseña', widget=forms.PasswordInput)
-    pais = forms.CharField(max_length=30)  
-
-    last_name = forms.CharField()
-    first_name = forms.CharField()
-
-    class Meta:
-        model = User
-        fields = ['email', 'password1', 'password2', 'last_name', 'first_name', 'pais']
-
-class ClienteFormulario(forms.Form):
-    nombre = forms.CharField(max_length=40)
-    apellido = forms.CharField(max_length=40)
-    rut=forms.IntegerField()
-    direccion=forms.CharField(max_length=40)
-    email=forms.EmailField()
+class ProductoFormulario(forms.Form):
+    nombre = forms.CharField(max_length=100)
+    descripcion = forms.CharField(widget=forms.Textarea)
+    precio = forms.DecimalField(max_digits=10, decimal_places=2)
+    stock = stock = forms.IntegerField(min_value=0)
+    imagen = forms.ImageField(required=False)
     
 class AvatarFormulario(forms.ModelForm):
     class Meta:

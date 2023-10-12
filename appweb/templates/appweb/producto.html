@@ -1,0 +1,25 @@
+{% extends 'appweb/padre.html' %}
+
+{% block titulo %}
+Bienvenido a Productos
+<br>
+<a class="btn btn-primary text-uppercase ms-2" href="{% url 'registroProducto' %}">Crear Producto</a>
+<a class="btn btn-primary text-uppercase ms-2" href="{% url 'buscarProducto' %}">buscar Producto</a>
+{% endblock %}
+
+{% block contenido %}
+
+{% for Producto in producto %}
+
+    <li style="list-style: none;">
+        Nombre: {{Producto.nombre}} <br> Descripcion: {{Producto.descripcion}} <br> Precio: {{Producto.precio}} <br> imagen: {{Producto.imagen}} <br>
+        <a href="{% url 'borrarProducto' Producto.id %}"><button style="border-radius: 15px;" type="button" class="btn btn-secondary btn-sm" >eliminar producto</button></a>
+        <a href="{% url 'editarProducto' Producto.nombre %}"><button style="border-radius: 15px;" type="button" class="btn btn-secondary btn-sm" >editar producto</button></a>
+    </li>
+    <br>
+
+{% endfor %}
+
+
+
+{% endblock %}

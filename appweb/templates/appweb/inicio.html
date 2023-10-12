@@ -2,13 +2,28 @@
 
 
 {% block titulo %}
+<h1>Blog de Jabones</h1>
+<h3>Te presentamos el sitioWeb ideal para saber mas sobre el mundo de los Jabones</h3>
+{% endblock%}
 
+{% block contenido %}
 {% if user %}
 
-Bienvenido "{{user.username}}"
+<h1>Hola {{user.username}}!!!</h1>
 <br>
-<a class="btn btn-primary text-uppercase ms-2" href="{% url 'Cliente' %}">Ir a cliente</a>
-<a class="btn btn-primary text-uppercase ms-2" href="{% url 'registroCliente' %}">Ir a vendedor</a>
+<label class="form-label" for="form1"><h4>Buscar Producto</h4></label> <br>
+<div class="input-group">
+    <form action="/appweb/resultadoProducto" method="GET">{% csrf_token %}
+    
+        <input type="text" name="nombre" placeholder="Nombre del producto" aria-label="Username" aria-describedby="basic-addon1">
+    
+        <input type="submit" value="Buscar" >
+    
+    </form>
+</div>
+<br>
+<a class="btn btn-primary text-uppercase ms-2" href="{% url 'Producto' %}">Ir a Producto</a>
+<a class="btn btn-primary text-uppercase ms-2" href="{% url 'registroProducto' %}">Crear Producto</a>
 
 
 {% else %}

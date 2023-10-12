@@ -3,14 +3,14 @@
 {% block titulo %}
 Buscar Clientes
 
-<a class="btn btn-primary text-uppercase ms-2" href="{% url 'Cliente' %}">Regresar a Cliente</a>
+<a class="btn btn-primary text-uppercase ms-2" href="{% url 'Producto' %}">Regresar a Productos</a>
 <a class="btn btn-primary text-uppercase ms-2" href="{% url 'Inicio' %}">Volver a Inicio</a>
 
 {% endblock %}
 
 {% block formulario %}
 
-<form action="/appweb/resultadoCliente" method="GET">{% csrf_token %}
+<form action="/appweb/resultadoProducto" method="GET">{% csrf_token %}
     
     <p> Nombre:  <input type="text" name="nombre" > </p>
 

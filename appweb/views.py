@@ -16,93 +16,111 @@ from .forms import *
 def inicio(request):
     return render(request, "appweb/inicio.html")
 
-@login_required
-def cliente(request):
-    
-    todos = Cliente.objects.all()
-    
-    return render(request, "appweb/cliente.html", {"cliente": todos})
-
-def vendedor(request):
-    return render(request, "appweb/vendedor.html")
-
 def producto(request):
-    return render(request, "appweb/producto.html")
+    
+    todos = Producto.objects.all()
+
+    return render(request, "appweb/producto.html",{"producto": todos})
 
 def comentario(request):
     return render(request, "appweb/comentario.html")
 
-
-def registroCliente(request):
+def registroProducto(request):
     
     if request.method == "POST":
         
-        miFormulario = ClienteFormulario(request.POST)
+        miFormulario = ProductoFormulario(request.POST)
         
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            clienteNuevo = Cliente(nombre=informacion["nombre"], apellido=informacion["apellido"],rut=informacion["rut"],direccion=informacion["direccion"],email=informacion["email"],)
-            clienteNuevo.save()
+            ProductoNuevo = Producto(nombre=informacion["nombre"], descripcion=informacion["descripcion"],precio=informacion["precio"],stock=informacion["stock"],imagen=informacion["imagen"],)
+            ProductoNuevo.save()
             return render(request, "appweb/inicio.html")
     else:
-        miFormulario = ClienteFormulario()
+        miFormulario = ProductoFormulario()
         
-    return render(request, "appweb/registro_cliente.html", {"form": miFormulario})
+    return render(request, "appweb/registro_producto.html", {"form": miFormulario})
 
-def buscarCliente(request):
+@login_required
+def buscarProducto(request):
 
-    return render(request, "appweb/buscar_cliente.html")
+    return render(request, "appweb/buscar_producto.html")
 
-def resultadoCliente(request):
+@login_required
+def resultadoProducto(request):
 
     if request.GET["nombre"]:
 
         nombre = request.GET["nombre"]
-        clienteresultado = Cliente.objects.filter(nombre__icontains=nombre)
+        Productoresultado = Producto.objects.filter(nombre__icontains=nombre)
 
-        return render(request, "appweb/resultado_cliente.html", {"valor": nombre, "res": clienteresultado})
+        return render(request, "appweb/resultado_producto.html", {"bus":nombre, "res": Productoresultado})
     else:
-        return HttpResponse("No enviaste Datos.")
+        resultado = "No hay datos"
 
-    return render(request, "appweb/resultado_cliente.html")
+    return render(request, "appweb/resultado_producto.html", {resultado})
 
-def eliminarCliente(request, cliente_id):
-    clienteEliminado = Cliente.objects.get(id= cliente_id)
-    clienteEliminado.delete()
-    todos = Cliente.objects.all()
+def eliminarProducto(request, producto_id):
+    productoEliminado =Producto.objects.get(id= producto_id)
+    productoEliminado.delete()
+    todos =Producto.objects.all()
 
-    return render(request, "appweb/cliente.html", {"cliente": todos})
+    return render(request, "appweb/producto.html", {"Producto": todos})
 
-def actualizarCliente(request,cliente_nombre):
+@login_required
+def actualizarProducto(request,producto_nombre):
     
-    clienteElegido = Cliente.objects.get(nombre=cliente_nombre)
+    ProductoElegido =Producto.objects.get(nombre=producto_nombre)
     
     if request.method == "POST":
         
-        miFormulario = ClienteFormulario(request.POST)
+        miFormulario = ProductoFormulario(request.POST)
         
         if miFormulario.is_valid():
             
             informacion = miFormulario.cleaned_data
             
-            clienteElegido.nombre = informacion["nombre"]
-            clienteElegido.apellido = informacion["apellido"]
-            clienteElegido.rut = informacion["rut"]
-            clienteElegido.direccion = informacion["direccion"]
-            clienteElegido.email = informacion["email"]
+            ProductoElegido.nombre = informacion["nombre"]
+            ProductoElegido.descripcion = informacion["descripcion"]
+            ProductoElegido.precio = informacion["precio"]
+            ProductoElegido.stock = informacion["stock"]
+            ProductoElegido.imagen = informacion["imagen"]
             
-            clienteElegido.save()
+            ProductoElegido.save()
             
             return render(request, "appweb/inicio.html")
     else:
-        miFormulario = ClienteFormulario(initial={"nombre": clienteElegido.nombre,
-                                                "apellido": clienteElegido.apellido,
-                                                "rut": clienteElegido.rut,
-                                                "direccion": clienteElegido.direccion,
-                                                "email": clienteElegido.email})
+        miFormulario = ProductoFormulario(initial={"nombre": ProductoElegido.nombre,
+                                                "descripcion": ProductoElegido.descripcion,
+                                                "precio": ProductoElegido.precio,
+                                                "stock": ProductoElegido.stock,
+                                                "imagen": ProductoElegido.imagen})
         
-    return render(request, "appweb/registro_cliente.html", {"form": miFormulario})
+    return render(request, "appweb/registro_producto.html", {"form": miFormulario})
 
+@login_required
+def agregarComentario(request):
+
+    if request.method == 'POST':
+
+        miFormulario=ComentarioFormulario(request.POST)
+
+        if miFormulario.is_valid():
+
+            informacion = miFormulario.cleaned_data
+
+            comentario = Comentario(autor=request.user,tipo=informacion['tipo'], calificacion=informacion['calificacion'], opinion=informacion["opinion"])
+
+            comentario.save()
+
+            return render(request, 'appweb/inicio.html')
+    else:
+
+        miFormulario=ComentarioFormulario()
+
+    return render(request, 'appweb/añadir_comentario.html', {'form':miFormulario})
+
+@login_required
 def login_view(request):
 
     if request.method == "POST":
@@ -115,17 +133,18 @@ def login_view(request):
             usuario = info.get("username")
             contrasena = info.get("password")
 
-            #acá hacemos la validación
+            
             user = authenticate(username=usuario, password=contrasena)
 
             if user:
                 login(request, user)  
-                return render(request, "appweb/inicio.html", {"usuario":user})
+                return render(request, "appweb/inicio.html", {'mensaje': f"Bienvenido {user}"})
         
         else:
-            return render(request,"appweb/inicio.html", {"mensaje":"usuario invalido"})
-
-    form_inicio = AuthenticationForm()
+            return render(request,"appweb/inicio.html", {"mensaje":"Usuario Incorrecto"})
+    else:
+        
+        form_inicio = AuthenticationForm()
 
     return render(request,"appweb/login.html", {"form":form_inicio} )
 
@@ -148,35 +167,6 @@ def register(request):
     return render(request,"appweb/register.html" ,  {"form":form})
 
 @login_required
-def editarPerfil(request):
-
-    usuario = request.user
-
-    if request.method == 'POST':
-
-        miFormulario = UserEditForm(request.POST)
-
-        if miFormulario.is_valid():
-
-            informacion = miFormulario.cleaned_data
-
-            usuario.email = informacion['email']
-            usuario.password1 = informacion['password1']
-            usuario.password2 = informacion['password2']
-            usuario.last_name = informacion['last_name']
-            usuario.first_name = informacion['first_name']
-
-            usuario.save()
-
-            return render(request, "appweb/inicio.html")
-
-    else:
-
-        miFormulario = UserEditForm(initial={'email': usuario.email})
-
-    return render(request, "appweb/editarPerfil.html", {"miFormulario": miFormulario, "usuario": usuario})
-
-@login_required
 def agregarAvatar(request):
     if request.method == 'POST':
         miFormulario = AvatarFormulario(request.POST, request.FILES)
@@ -192,27 +182,3 @@ def agregarAvatar(request):
         miFormulario = AvatarFormulario()
     
     return render(request, "appweb/agregarAvatar.html", {"miFormulario": miFormulario})
-
-class ClienteLista(ListView): #estudiante_list.html
-    model = Cliente
-    template_name = "appweb/lista_cliente.html"
-#Detail 
-class ClienteDetalle(DetailView): #estudiante_detail.html
-    model = Cliente
-    
-#Create
-class ClienteCrear(CreateView): #estudiante_form.html
-    model = Cliente
-    fields = ["nombre", "apellido","rut","direccion","email"]
-    success_url = "/appweb/cliente/lista/"
-
-#Update
-class ClienteActualizar(UpdateView): #estudiante_form.html
-    model = Cliente
-    fields = ["nombre", "apellido", "email"]
-    success_url = "/appweb/cliente/lista/"
-
-#Delete
-class ClienteBorrar(DeleteView): #estudiante_confirm_delete.html
-    model = Cliente 
-    success_url = "/appweb/cliente/lista/"

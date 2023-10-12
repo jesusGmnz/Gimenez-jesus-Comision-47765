@@ -1,0 +1,25 @@
+{% extends 'appweb/padre.html' %}
+
+
+{% block titulo %}
+<h1>Blog de Jabones</h1>
+<h3>Te presentamos el sitioWeb ideal para saber mas sobre el mundo de los Jabones</h3>
+{% endblock%}
+
+
+{% block contenido %}
+
+<form action="" method="POST">  {% csrf_token %}
+
+    <table>
+
+        {{form.as_table}}
+
+    </table>
+
+    <input type="submit" value="Enviar">
+
+
+</form>
+
+{% endblock %}
