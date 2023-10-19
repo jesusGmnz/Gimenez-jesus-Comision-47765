@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import *
+from .models import Producto
 
 
 class RegistroFormulario(UserCreationForm):
@@ -27,4 +27,4 @@ class ProductoFormulario(forms.ModelForm):
         
         model = Producto
         
-        fields = '__all__'
+        fields = ["nombre","descripcion", "precio", "stock", "imagen"]
