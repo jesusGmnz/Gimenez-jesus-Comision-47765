@@ -1,5 +1,6 @@
 {% extends 'appweb/padre.html' %}
 
+{% load static%}
 
 {% block titulo %}
 Iniciar sesión
@@ -9,12 +10,11 @@ Iniciar sesión
 
 <form action="" method="POST"> {% csrf_token %}
 
-    <table>
+        <table>
         {{ form.as_table }}
-    </table>
-    
-    <input type="submit" value="Iniciar Sesion">
-
+        
+        </table>
+        <button type="submit"> Iniciar Sesion</button>
 </form>
 
 
