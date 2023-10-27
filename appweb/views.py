@@ -51,6 +51,8 @@ def login_request(request):
 
     return render(request,"appweb/Autenticar/login.html", {"form":form} )
 
+def about(request):
+    return render(request, 'appweb/about.html')
 
 def inicio(request):
     return render(request, "appweb/inicio.html")

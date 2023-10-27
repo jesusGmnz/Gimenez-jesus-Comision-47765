@@ -30,7 +30,7 @@
                             <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'Inicio' %}" >Inicio</a></li>
                             <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'Producto' %}">Producto</a></li>
                             <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'agregarComenterio' %}">Blog</a></li>
-                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'Sobre mi' %}">Sobre Mi</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'about' %}">Sobre Mi</a></li>
                         </ul>
                         {% if not user.is_authenticated %}
                         <a class="btn btn-primary text-uppercase ms-2" href="{% url 'Register' %}">Registro</a>

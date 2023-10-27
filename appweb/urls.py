@@ -7,6 +7,7 @@ from django.contrib.auth.views import LogoutView
 urlpatterns = [
     #el inicio de la pagina
     path('inicio',inicio,name="Inicio"),
+    path('about',about,name="about"),
     
     #url para leer
     path('Producto',producto,name="Producto"),
