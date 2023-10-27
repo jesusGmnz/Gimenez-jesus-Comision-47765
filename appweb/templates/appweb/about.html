@@ -1,0 +1,40 @@
+{% extends 'appweb/padre.html' %}
+
+{% load static %}
+{% block titulo %}
+
+<h1>Sobre mi</h1>
+<h3>Jesus Gimenez</h3>
+<p>Futuro desarrollador Full Stack</p>
+
+{% endblock%}
+
+{% block contenido %}
+
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="float-start p-2">
+                    <img class="float-start p-3" src="{% static 'appweb/assets/img/IMG_20201213_132923.jpg' %}" alt="" width="400px">
+                    <h5 class="p-2 text-capitalize fst-italic lh-base">Me llamos Jesus Gimenez,
+                        Soy lincenciado en educacion matematicas con mencion en informatica,
+                        actul mente me desempeño como inspector de buses en la empresa
+                        METBUS S.A en la Region Metropolitana, de santiago de Chile
+                    </h5>
+                </div>
+                <div class="float-start p-2">
+                    <img class="float-start p-3"  src="{% static 'appweb/assets/img/jesus.jpg' %}" alt="" width="400px">
+                    <h5 class="p-2 text-capitalize fst-italic lh-base">Actualmente me encuentro estudiando desarrollo web y todo lo relacionado
+                        con la programacion, en esta academia de CoderHouse.
+                        ya que quiero convertime en un desarrollador full stack.
+                        Con estas clase he podido ayudar amigos en sus pymes creandole sus pagina web
+                        para apoyar el crecimento de su emprendimiento.
+                        Y asi acercandome cada vez mas a mis objetivos
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

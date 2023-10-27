@@ -9,7 +9,7 @@ class Producto(models.Model):
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
-    imagen = models.ImageField(upload_to ='jabones', null=True)
+    imagen = models.ImageField(upload_to='jabones', null=True)
     
 class Comentario(models.Model):
     autor=models.CharField(max_length=40, default="")
