@@ -16,7 +16,7 @@ urlpatterns = [
     #los crud de producto
     path('registroProducto',registroProducto, name="registroProducto" ),
     path('borrarProducto/<int:producto_id>/',eliminarProducto, name="borrarProducto"),
-    path('editaProducto/<producto_nombre>/',actualizarProducto, name='editarProducto'),
+    path('editaProducto/<producto_nombre>/',actualizarProducto, name="editarProducto"),
     
     #buscar producto
     path('buscarProducto',buscarProducto,name="buscarProducto"),

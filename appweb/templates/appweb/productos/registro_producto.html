@@ -1,8 +1,8 @@
 {% extends 'appweb/padre.html' %}
 
 {% block titulo %}
-Regristro de nuevos clientes
-
+Agregar Nuevos Productos
+<br>
 <a class="btn btn-primary text-uppercase ms-2" href="{% url 'Producto' %}">Regresar a Cliente</a>
 <a class="btn btn-primary text-uppercase ms-2" href="{% url 'Inicio' %}">Volver a Inicio</a>
 {% endblock %}
@@ -16,6 +16,7 @@ Regristro de nuevos clientes
     {{form.as_table}}
     
     </table>
+    <h4>"Para Agregar el roducto haga clic en el boton guardar"</h4>
     <input type="submit" value="Guardar">
 
 </form>

@@ -57,11 +57,6 @@ def about(request):
 def inicio(request):
     return render(request, "appweb/inicio.html")
 
-def producto(request):
-    
-    todos = Producto.objects.all()
-
-    return render(request, "appweb/producto.html",{"producto": todos})
 
 def comentario(request):
     return render(request, "appweb/comentario.html")
@@ -71,7 +66,7 @@ def registroProducto(request):
     
     if request.method == "POST":
         
-        miFormulario = ProductoFormulario(request.POST)
+        miFormulario = ProductoFormulario(request.POST, request.FILES)
         
         if miFormulario.is_valid():
             
@@ -83,6 +78,48 @@ def registroProducto(request):
             return render(request, "appweb/inicio.html")
     else:
         miFormulario = ProductoFormulario()
+        
+    return render(request, "appweb/productos/registro_producto.html", {"form": miFormulario})
+
+@login_required
+def producto(request):
+    
+    todos = Producto.objects.all()
+
+    return render(request, "appweb/productos/producto.html",{"producto": todos})
+
+@login_required
+def eliminarProducto(request, producto_id):
+    productoEliminado =Producto.objects.get(id= producto_id)
+    productoEliminado.delete()
+    todos =Producto.objects.all()
+
+    return render(request, "appweb/producto.html", {"Producto": todos})
+
+@login_required
+def actualizarProducto(request,producto_nombre):
+    
+    ProductoElegido =Producto.objects.get(nombre=producto_nombre)
+    
+    if request.method == "POST":
+        
+        miFormulario = ProductoFormulario(request.POST, request.FILES)
+        
+        if miFormulario.is_valid():
+            
+            informacion = miFormulario.cleaned_data
+            
+            ProductoElegido.nombre = informacion["nombre"]
+            ProductoElegido.descripcion = informacion["descripcion"]
+            ProductoElegido.precio = informacion["precio"]
+            ProductoElegido.stock = informacion["stock"]
+            ProductoElegido.imagen = informacion["imagen"]
+            
+            ProductoElegido.save()
+            
+            return render(request, "appweb/inicio.html")
+    else:
+        miFormulario = ProductoFormulario(initial={"nombre": ProductoElegido.nombre,"descripcion": ProductoElegido.descripcion,"precio": ProductoElegido.precio,"stock": ProductoElegido.stock,"imagen": ProductoElegido.imagen})
         
     return render(request, "appweb/registro_producto.html", {"form": miFormulario})
 
@@ -104,45 +141,6 @@ def resultadoProducto(request):
         resultado = "No hay datos"
 
     return render(request, "appweb/resultado_producto.html", {resultado})
-
-@login_required
-def eliminarProducto(request, producto_id):
-    productoEliminado =Producto.objects.get(id= producto_id)
-    productoEliminado.delete()
-    todos =Producto.objects.all()
-
-    return render(request, "appweb/producto.html", {"Producto": todos})
-
-@login_required
-def actualizarProducto(request,producto_nombre):
-    
-    ProductoElegido =Producto.objects.get(nombre=producto_nombre)
-    
-    if request.method == "POST":
-        
-        miFormulario = ProductoFormulario(request.POST)
-        
-        if miFormulario.is_valid():
-            
-            informacion = miFormulario.cleaned_data
-            
-            ProductoElegido.nombre = informacion["nombre"]
-            ProductoElegido.descripcion = informacion["descripcion"]
-            ProductoElegido.precio = informacion["precio"]
-            ProductoElegido.stock = informacion["stock"]
-            ProductoElegido.imagen = informacion["imagen"]
-            
-            ProductoElegido.save()
-            
-            return render(request, "appweb/inicio.html")
-    else:
-        miFormulario = ProductoFormulario(initial={"nombre": ProductoElegido.nombre,
-                                                "descripcion": ProductoElegido.descripcion,
-                                                "precio": ProductoElegido.precio,
-                                                "stock": ProductoElegido.stock,
-                                                "imagen": ProductoElegido.imagen})
-        
-    return render(request, "appweb/registro_producto.html", {"form": miFormulario})
 
 @login_required
 def agregarComentario(request):

@@ -12,7 +12,7 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to='jabones', null=True)
     
 class Comentario(models.Model):
-    autor=models.CharField(max_length=40, default="")
+    autor=models.CharField(max_length=40)
     tipo=models.CharField(max_length=40)
     calificacion=models.FloatField()
     opinion=models.TextField(max_length=300)
