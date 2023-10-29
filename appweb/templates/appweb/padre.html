@@ -37,7 +37,7 @@
                         {% endif %}
 
                         {% if user.is_authenticated %}
-                        <p>Hola, {{user.username}}</p>
+                        <span class="badge rounded-pill bg-primary">Hola  {{user.username}}</span>
                         <a class="btn btn-primary text-uppercase ms-2" href="{% url 'Logout' %}">Cerrar Sesion</a>
                         {% endif %}
                 </div>

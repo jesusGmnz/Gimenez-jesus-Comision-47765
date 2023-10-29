@@ -21,8 +21,18 @@ Resultado de la busqueda
     {% endfor %}
     
     {% else %}
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="col-auto p-2 text-center">
+                    <a class="btn btn-primary text-uppercase ms-2 p-3 m-3" href="{% url 'Inicio' %}">Vuele a Inicio</a>
+                    <h3 class="p-3 mb-2 bg-danger text-white">PRODUCTO NO EXISTE</h3>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <p>¡¡¡producto no existe!!!</p>
+    
     
     {% endif %}
 
