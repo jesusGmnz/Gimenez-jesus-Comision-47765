@@ -1,0 +1,30 @@
+{% extends 'appweb/padre.html' %}
+
+{% block titulo %}
+Resultado de la busqueda
+{% endblock%}
+
+{% block contenido %}
+    <h2>{{busqueda}}</h2>
+
+    {% if resultados %}
+
+    {% for producto in resultados %}
+    
+        <p>aroma del jabon :{{producto.nombre}}</p>
+        <p>descipcion del jabon : {{producto.descripcion}}</p>
+        <p>precio del producto : {{producto.precio}}</p>
+        <p>cantidad disponible : {{producto.stock}}</p>
+        <img class="rounded border border-light" src="{{producto.imagen.url}}" alt="No hay imagen." style="max-width: 20em;">
+    
+    
+    {% endfor %}
+    
+    {% else %}
+    
+    <p>¡¡¡producto no existe!!!</p>
+    
+    {% endif %}
+
+
+{% endblock %}

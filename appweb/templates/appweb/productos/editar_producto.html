@@ -1,0 +1,29 @@
+{% extends 'appweb/padre.html' %}
+
+
+{% block titulo %}
+
+editar producto
+
+{% endblock%}
+
+
+{% block contenido %}
+
+{% if miFormulario.errors %}
+<p style="color: red;">Error en datos</p>
+{% endif %}
+
+<form action="" enctype="multipart/form-data"  method="POST"> {%csrf_token%}
+
+    <table>
+
+        {{miFormulario.as_table}}
+
+    </table>
+
+    <input class="btn btn-primary text-uppercase ms-2" type="submit", value="guardar"">
+
+</form>
+
+{% endblock %}

@@ -1,24 +1,27 @@
 {% extends 'appweb/padre.html' %}
 
+
 {% block titulo %}
-Agregar Nuevos Productos
-<br>
-<a class="btn btn-primary text-uppercase ms-2" href="{% url 'Producto' %}">Regresar a Cliente</a>
-<a class="btn btn-primary text-uppercase ms-2" href="{% url 'Inicio' %}">Volver a Inicio</a>
-{% endblock %}
+
+Agregar producto
+
+{% endblock%}
+
 
 {% block contenido %}
 
-<form action="" enctype="multipart/form-data" method="POST"> {% csrf_token %}
+<form action="" enctype="multipart/form-data" method="POST">  {% csrf_token %}
 
     <table>
 
-    {{form.as_table}}
-    
+        {{form.as_table}}
+
     </table>
-    <h4>"Para Agregar el roducto haga clic en el boton guardar"</h4>
-    <input type="submit" value="Guardar">
+
+    <input type="submit" value="Agregar">
+
 
 </form>
+
 
 {% endblock %}

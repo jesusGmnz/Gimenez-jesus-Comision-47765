@@ -1,0 +1,51 @@
+{% extends 'appweb/padre.html' %}
+
+
+{% block titulo %}
+
+Productos Disponibles
+
+
+
+{% endblock%}
+
+
+{% block contenido %} 
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="col-auto p-2 text-center">
+                <h1>Nuevo Producto</h1>
+                <a class="btn btn-primary text-uppercase ms-2" href="{% url 'AgregarProducto' %}">crear producto</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% for producto in resultado_producto %}
+<br>
+<main class="mb-4">
+    <div class="container px-4 px-lg-5 border border-secondary">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="col-auto p-2 text-center">
+                    <img class="rounded border border-light" src="{{producto.imagen.url}}" alt="No hay imagen." style="max-width: 20em;">
+                    <li style="list-style: none;">
+                        <p>Aroma : {{producto.nombre}}</p>
+                        <p>descipcion del jabon : {{producto.descripcion}}</p>
+                        <p>precio del producto : {{producto.precio}}</p>
+                        <p>cantidad disponible : {{producto.stock}}</p>
+                    </li>
+                    <a class="btn btn-primary text-uppercase ms-2" href="{% url 'EditarProductos' producto.nombre %}">Editar</a>
+                    <a class="btn btn-primary text-uppercase ms-2" href="{% url 'BorrarProductos' producto.nombre %}">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<br>
+{% endfor %}
+
+
+{% endblock %}

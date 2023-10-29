@@ -11,20 +11,21 @@
 {% if user %}
 
 <h1>Hola {{user.username}}!!!</h1>
-<br>
-<label class="form-label" for="form1"><h4>Buscar Producto</h4></label> <br>
-<div class="input-group">
-    <form action="/appweb/resultadoProducto" method="GET">{% csrf_token %}
-    
-        <input type="text" name="nombre" placeholder="Nombre del producto" aria-label="Username" aria-describedby="basic-addon1">
-    
-        <input type="submit" value="Buscar" >
-    
-    </form>
+<div class="col-lg-4">
+    <!-- Search widget-->
+    <div class="card mb-4">
+        <form action="/appweb/buscar" method="GET">
+            <div class="card-header">Buscar Reseñas</div>
+            <div class="card-body">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Ingresa el nombre..." name="producto" id="producto" />
+                    <input type="submit" value="Buscar">
+                </div>
+            </div>
+        </form>
+        
+    </div>
 </div>
-<br>
-<a class="btn btn-primary text-uppercase ms-2" href="{% url 'Producto' %}">Ir a Producto</a>
-<a class="btn btn-primary text-uppercase ms-2" href="{% url 'registroProducto' %}">Crear Producto</a>
 
 
 {% else %}
