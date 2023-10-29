@@ -1,0 +1,19 @@
+{% extends 'appweb/padre.html' %}
+
+{% block titulo %}
+<h1>Blog de Jabones</h1>
+<a class="btn btn-primary text-uppercase ms-2" href="{% url 'AgregarComentario' %}">Agregar un Comentario</a>
+{% endblock%}
+
+
+
+
+{% block contenido %}
+
+    {% for comentarios in resultado_comentario %}
+
+        <p>Nombre :{{comentarios.autor}}</p>
+
+    {% endfor %}
+
+{% endblock %}

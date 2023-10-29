@@ -24,4 +24,7 @@ urlpatterns = [
     path("EditarProductos/<producto_nombre>", editarProducto, name="EditarProductos"), #modificar los productos
     path("BorrarProductos/<producto_nombre>", eliminarProducto, name="BorrarProductos"), #eliminar algun producto
     
+    #comentario de productos
+    path('Blog', comentario , name='Blog'),
+    path('AgregarComentario', Comentar_Producto , name='AgregarComentario'),
 ]

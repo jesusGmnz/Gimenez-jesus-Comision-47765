@@ -78,7 +78,6 @@ def EditarUsuario(request):
 
     return render(request, "appweb/Autenticar/editar_usuario.html",{'miFormulario':miFormulario, 'usuario':usuario.username})
 
-
 def about(request):
     return render(request, 'appweb/about.html')
 
@@ -169,3 +168,30 @@ def Buscar_Producto(request):
         respuesta="No enviaste datos."
 
     return HttpResponse(respuesta)
+
+@login_required
+def Comentar_Producto(request):
+
+    if request.method == 'POST':
+
+        miFormulario=ComentarioFormulario(request.POST)
+
+        if miFormulario.is_valid():
+
+            informacion = miFormulario.cleaned_data
+
+            comentarios = Comentario(autor=request.user, tipo=informacion['tipo'], calificacion=informacion['calificacion'],opinion=informacion['opinion'])
+            comentarios.save()
+
+            return render(request, 'appweb/inicio.html')
+    else:
+
+        miFormulario=ComentarioFormulario()
+
+    return render(request, 'appweb/comentarios/agregar_comentario.html', {'form':miFormulario})
+
+@login_required
+def comentario(request):
+    comentarios = Comentario.objects.all()
+
+    return render(request, "appweb/comentarios/comentario.html",{"resultado_comentario": comentarios})
