@@ -12,7 +12,10 @@
 
     {% for comentarios in resultado_comentario %}
 
-        <p>Nombre :{{comentarios.autor}}</p>
+        <p>usuario: {{comentarios.autor}}</p>
+        <p>producto: {{comentarios.tipo}}</p>
+        <p>puntaje: {{comentarios.calificacion}}</p>
+        <p>opinion: {{comentarios.opinion}}</p>
 
     {% endfor %}
 
