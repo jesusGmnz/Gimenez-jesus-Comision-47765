@@ -51,6 +51,34 @@ def login_request(request):
 
     return render(request,"appweb/Autenticar/login.html", {"form":form} )
 
+@login_required
+def EditarUsuario(request):
+
+    usuario = request.user 
+
+    if request.method == "POST":    
+
+        miFormulario = RegistroFormulario(request.POST) 
+
+        if miFormulario.is_valid():
+
+            informacion = miFormulario.cleaned_data     
+
+            usuario.username = informacion['username']
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password1']
+            usuario.save()
+
+            return render(request, "appweb/inicio.html")
+
+    else:
+
+        miFormulario= RegistroFormulario(initial={'username':usuario.username, 'email':usuario.email})
+
+    return render(request, "appweb/Autenticar/editar_usuario.html",{'miFormulario':miFormulario, 'usuario':usuario.username})
+
+
 def about(request):
     return render(request, 'appweb/about.html')
 

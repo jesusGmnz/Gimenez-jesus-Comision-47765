@@ -39,6 +39,7 @@
                         {% if user.is_authenticated %}
                         <span class="badge rounded-pill bg-primary">Hola  {{user.username}}</span>
                         <a class="btn btn-primary text-uppercase ms-2" href="{% url 'Logout' %}">Cerrar Sesion</a>
+                        <a class="btn btn-primary text-uppercase ms-2" href="{% url 'EditarUsuario' %}">Modificar Usuario</a>
                         {% endif %}
                 </div>
             </div>
